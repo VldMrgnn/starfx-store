@@ -1,4 +1,4 @@
-import { parallel, call } from "starfx";
+import { parallel, createQueryState } from "starfx";
 import { configureStore } from "starfx/store";
 import { api, thunks } from "./apis";
 import * as slx from "./slices";
@@ -9,12 +9,12 @@ import { consumeTerminalEmitter } from "./channel";
 import type { FxStore } from "starfx/store";
 import type { QueryState } from "starfx";
 
-export const initialState = {
+export const initialState = createQueryState({
   [slx.appRepo.name]: slx.appRepo.initialState,
   [slx.notifyRepo.name]: { message: "" },
   [slx.similo.name]: slx.similo.initialState,
   [slx.usersRepo.name]: slx.usersRepo.initialState,
-};
+});
 
 export const store = await configureStore({
   initialState,
@@ -37,4 +37,4 @@ export const runState = async () =>
     yield* engine;
   });
 
-export type RootState = QueryState & TInitialStore & FxStore<TInitialStore>;
+export type RootState = TInitialStore & FxStore<TInitialStore>;

@@ -45,16 +45,13 @@ function sxnext(action: any) {
   const mergeRegexPattern = new RegExp(
     `^${starfxPrefix}(${storeKeys.join("|")})${mergeSuffix}$`,
   );
-  const loaderRegexPattern = new RegExp(
-    `^${loaderPrefix}(${storeKeys.join("|")})$`,
-  );
   return match(action)
     .with(
       { type: P.string.regex(setRegexPattern), payload: P.any },
       ({ type, payload }) => {
         const sliceName = type.replace(setRegexPattern, "$1");
         fx.run(function* () {
-          yield* updateStore(setSlice(sliceName as keyof RootState, payload));
+          yield* updateStore(setSlice(sliceName as keyof RootState, payload as any));
         });
       },
     )
@@ -117,14 +114,6 @@ function sxnext(action: any) {
         });
       },
     )
-    .with({ type: P.string.regex(loaderRegexPattern) }, ({ type }) => {
-      const sliceName = type.replace(loaderRegexPattern, "$1");
-      console.log("sliceName", sliceName);
-
-      // fx.run(function* () {
-      //   yield* updateStore(setSlice(sliceName as keyof RootState, "loading"));
-      // });
-    })
     .otherwise(() => {
       if (
         [

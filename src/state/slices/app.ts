@@ -37,7 +37,8 @@ export const appRepo = fxCreateAssign({
   initialState,
 });
 
-export const selectAppDefs = selectSlice(REPO_NAME) as (s: RootState) => TApp;
+// export const selectAppDefs = selectSlice(appRepo.name) as (s: RootState) => TApp;
+export const selectAppDefs = (s: RootState) => s[REPO_NAME];
 
 export const setAppValue = thunks.create<Partial<TApp>>(
   `setAppValue`,
@@ -65,15 +66,15 @@ export const loadUser = api.get(
   },
 );
 
-export const loadUserWithError = api.get(
+export const loadUserWithError_ = api.get(
   "/users/7",
   { supervisor: takeLatest },
-  function* (ctx, next) {
+  function* (ctx: ApiCtx, next: Next) {
     const u = Math.floor(Math.random() * 9) + 1;
     ctx.request = { method: "GET", url: `/users/${u}` };
     // here we force an error to test the error handler //
     console.log('GENERATING AN ERROR');
-    ctx.loader.meta = { key: ctx.payload.thisValueDoesNotExist };
+    ctx.loader.meta = { key: ctx.payload.thisKeyDoesNotExist };
     console.log('NOT REACHED - but not throwing an error');
     ctx.cache = false;
     yield* next();
@@ -85,9 +86,20 @@ export const loadUserWithError = api.get(
   },
 );
 
+export const loadUserWithError = api.get(
+  "/users/8",
+  { supervisor: takeEvery },
+  function* (ctx: ApiCtx, next: Next) {
+    ctx.loader.meta = { key: ctx.payload.thisKeyDoesNotExist };
+    throw new Error('GENERATING AN ERROR');
+    yield* next();
+  },
+);
+
+
 export const loadPath = api.get(
   "/path",
-  { supervisor: takeLatest },
+  { supervisor: takeLatest }, 
   function* (ctx, next) {
     ctx.request = { method: "GET", url: `/comments/1` };
     ctx.loader.meta = { key: `/path` };

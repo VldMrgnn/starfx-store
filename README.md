@@ -1,4 +1,4 @@
-# This is a proof of concept for an implementation of the Starfx Store
+# This is a first attempt for an implementation of the Starfx Store
 
 The aim is to provide an example of
 
@@ -8,5 +8,3 @@ The aim is to provide an example of
 - Implementation of a channel
 - Implementation of a Store viewer
 - Implementation of a persitent slice
-
-The techniques used are a starting point for a more complete implementation or further experimentation.

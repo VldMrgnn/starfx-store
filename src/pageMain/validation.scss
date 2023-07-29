@@ -1,0 +1,123 @@
+$heightPx: 18px;
+$widthPx: 18px;
+.valid {
+  //the wrapper
+  &-ico {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    cursor: pointer;
+  }
+  &-emo-loader {
+    margin: auto;
+    display: grid;
+    position: relative;
+    height: $heightPx;
+    width: $widthPx;
+    font-size: 14px;
+    background-position: center;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+  } //ok
+  &-emo-solved {
+    width: 40px;
+    margin: auto;
+    &:after {
+      content: "✓";
+      color: #008020;
+      display: grid;
+      font-weight: bold;
+      pointer-events: none;
+      width: $widthPx;
+      height: $heightPx;
+      margin: auto;
+    }
+  } //ok
+
+  &-emo-err {
+    width: 40px;
+    margin: auto;
+    font-style: normal;
+    &:after {
+      display: grid;
+      pointer-events: none;
+      font-weight: bold;
+      top: 50%;
+      width: $widthPx;
+      height: $heightPx;
+      text-align: center;
+      line-height: $heightPx;
+      font-size: 11px;
+      background-color: #f74d61;
+      color: #fff;
+      content: "!";
+      border-radius: 50%;
+      margin: auto;
+    }
+  } //ok
+  &-emo {
+    display: grid;
+    position: relative;
+    width: 40px;
+    height: $heightPx;
+    font-size: 14px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+    margin: auto;
+  } //ok
+
+  &-emo-warn_triangle {
+    // width: 40px;?
+    // margin: auto;
+    display: grid;
+    position: relative;
+    width: 0;
+    height: $heightPx;
+    font-size: 14px;
+    line-height: 24px;
+    border: 18px solid transparent;
+    border-bottom-color: #ffbf09;
+    border-top: 0;
+    border-left-width: 11px;
+    border-right-width: 11px;
+    font-weight: bold;
+    background-color: transparent;
+    pointer-events: none;
+    margin-right: 18px;
+    &:before {
+      // content: "!";
+      content: "✓";
+      display: grid;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-51%);
+      width: $widthPx;
+      text-align: center;
+    }
+  }
+
+  &-emo-warn {
+    display: grid;
+    position: relative;
+    width: 40px;
+    height: $heightPx;
+    font-size: 14px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+  }
+}
+
+.button_text {
+  padding: 0 10px;
+}
+.main-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #333;
+  .main-text {
+    margin: auto;
+  }
+}

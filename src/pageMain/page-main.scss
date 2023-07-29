@@ -1,0 +1,9 @@
+#main-page {
+  display: grid;
+  grid-template-columns: minmax(800px, 1fr);
+  grid-template-rows: 1fr;
+  grid-template-areas: "commonContent";
+  grid-gap: 10px;
+  height: 100%;
+  background-color: #fff;
+}

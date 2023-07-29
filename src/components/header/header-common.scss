@@ -1,0 +1,89 @@
+$pear: #c7e78b;
+#project-file {
+  display: none;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.language-switch__button {
+  color: white;
+}
+
+// project-loader transparent button
+.language-switch__button,
+.terminal-switch__button,
+.project-loader {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background-color: transparent;
+    color: $pear;
+  }
+}
+
+// language-selector transparent button
+.language-selector {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: white;
+
+  &:hover {
+    background-color: transparent;
+    color: $pear;
+  }
+
+  .dx-button-text {
+    color: white;
+  }
+}
+
+.mumbai {
+  background-color: red;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: white;
+
+  &:hover {
+    background-color: transparent;
+    color: $pear;
+  }
+
+  .dx-button-text {
+    color: white;
+  }
+}
+
+.whoami-user {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: white;
+  margin: auto 0;
+}
+
+.terminal-switch {
+  padding: 0 10px;
+
+  .terminal-switch__button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    margin: auto 0;
+
+    &:hover {
+      background-color: transparent;
+      color: $pear;
+    }
+  }
+}

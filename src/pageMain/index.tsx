@@ -6,6 +6,7 @@ import {
   selectUserList,
   setAppValue,
   loadUser,
+  loadUserWithError,
   loadPath,
   loadUserTable,
 } from "../state";
@@ -29,6 +30,9 @@ export const MainPage = () => {
   const fetchUsers = () => {
     fx.dispatch(loadUserTable());
   };
+  const fetchUserWithError = () => {
+    fx.dispatch(loadUserWithError());
+  };
   return (
     <div id="main-page">
       <Switch value={sidebarid}>
@@ -50,6 +54,15 @@ export const MainPage = () => {
                 text="Fetch path name and assign value"
                 icon="folder"
                 onClick={fetchPath}
+              />
+            </div>
+            <div className="main-content__command">
+              <Button
+                width={600}
+                className="main-content__command__button"
+                text="Calling a saga that will fail"
+                icon="bell"
+                onClick={fetchUserWithError}
               />
             </div>
           </div>

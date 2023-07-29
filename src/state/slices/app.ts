@@ -55,10 +55,27 @@ export const loadUser = api.get(
   function* (ctx, next) {
     const u = Math.floor(Math.random() * 9) + 1;
     ctx.request = { method: "GET", url: `/users/${u}` };
-    ctx.loader.meta = { key: `/users/${u}` };
     ctx.cache = false;
-    //todo: integrate loader //
-    yield* sleep(1000);
+    yield* next();
+    if (ctx.json.ok) {
+      const { name: username } = ctx.json.data;
+      // CALL OTHER THUNKS //
+      yield* call(() => setAppValue.run(setAppValue({ winUser: username })));
+    }
+  },
+);
+
+export const loadUserWithError = api.get(
+  "/users/7",
+  { supervisor: takeLatest },
+  function* (ctx, next) {
+    const u = Math.floor(Math.random() * 9) + 1;
+    ctx.request = { method: "GET", url: `/users/${u}` };
+    // here we force an error to test the error handler //
+    console.log('GENERATING AN ERROR');
+    ctx.loader.meta = { key: ctx.payload.thisValueDoesNotExist };
+    console.log('NOT REACHED - but not throwing an error');
+    ctx.cache = false;
     yield* next();
     if (ctx.json.ok) {
       const { name: username } = ctx.json.data;

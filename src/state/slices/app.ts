@@ -90,9 +90,12 @@ export const loadUserWithError = api.get(
   "/users/8",
   { supervisor: takeEvery },
   function* (ctx: ApiCtx, next: Next) {
+    console.log('--0', ctx);
     ctx.loader.meta = { key: ctx.payload.thisKeyDoesNotExist };
+    console.log('--1', ctx);
     throw new Error('GENERATING AN ERROR');
     yield* next();
+    console.log('--2', ctx);
   },
 );
 

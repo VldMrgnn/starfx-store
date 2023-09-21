@@ -1,19 +1,19 @@
-import "devextreme/dist/css/dx.common.css";
-import "devextreme/dist/css/dx.light.css";
-import React from "react";
-import { Allotment } from "allotment";
-import { useSelector } from "starfx/react";
-import { selectAppDefs } from "./state";
-import { Whoami } from "./components";
-import { TerminalSwitch } from "./components";
-import { StateViewer } from "./components";
-import { MainPage } from "./pageMain";
-import { SideBar } from "./components";
-import { ConsolePage } from "./pageTerminal";
-import * as appConst from "@app/state/constants";
-import { useWindowDimensions } from "@app/context";
+import React from 'react';
 
-import "./App.scss";
+import { Allotment } from 'allotment';
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
+import { run } from 'starfx';
+import { useSelector } from 'starfx/react';
+
+import { useTerminal, useWindowDimensions } from '@app/context';
+import * as appConst from '@app/state/constants';
+
+import './App.scss';
+import { SideBar, StateViewer, TerminalSwitch, Whoami } from './components';
+import { MainPage } from './pageMain';
+import { ConsolePage } from './pageTerminal';
+import { selectAppDefs } from './state';
 
 const appStyle = {
   "--header-height": `${appConst.SIZES.headerHeight}px`,
@@ -21,9 +21,18 @@ const appStyle = {
 } as React.CSSProperties;
 
 function App() {
+
   const { drawerHeight } = useWindowDimensions();
+  const { runTerminal } = useTerminal();
   const apps = useSelector(selectAppDefs);
   const term_visible = apps["term_visible"];
+  React.useEffect(() => {
+    run(runTerminal);
+    return () => {
+      console.log("runTerminal:cleanup");
+      //todo: cleanup
+    };
+  }, []);
   return (
     <div id="app" style={appStyle}>
       <div id="main-content">

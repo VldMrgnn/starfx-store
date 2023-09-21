@@ -1,13 +1,14 @@
-import { sleep, run, expect } from "effection";
+import { run } from "effection";
+import { spawn } from "starfx";
+import { put } from "starfx/store";
 
+import { ensureArray } from "@app/service";
 import {
   terminalEmitterChannel,
   terminalReaderChannel,
 } from "@app/state/channel";
-import { ensureArray } from "@app/service";
-import { spawn } from "starfx";
-import { put } from "starfx/store";
-import { pushTermPersist } from "@app/state";
+import { pushTermPersist } from "@app/state/slices/persist";
+
 import type { Operation } from "effection";
 import type { Terminal } from "react-console-emulator";
 

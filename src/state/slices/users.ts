@@ -1,28 +1,9 @@
-import { put, takeLatest } from "starfx/store";
-import { fxCreateTable } from "../stardux";
-import { api, thunks } from "../apis";
+import { takeLatest, updateStore } from "starfx/store";
 
-import type { ApiCtx, Next } from "starfx";
-import { RootState } from "../rootStore";
+import { api, db } from "../rootSchema";
 
-const REPO_NAME = "users";
-
-export type TUser = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-};
-
-const initialState: Record<TUser["id"], TUser> = {};
-
-export const usersRepo = fxCreateTable({
-  name: REPO_NAME,
-  initialState,
-});
-
-export const selectUsers = (s: RootState) => s[REPO_NAME];
-export const selectUserList = (s: RootState) => Object.values(s[REPO_NAME]);
+export const selectUsers = db.users.selectTable;
+export const selectUserList = db.users.selectTableAsList;
 
 export const loadUserTable = api.get(
   "/users",
@@ -43,7 +24,7 @@ export const loadUserTable = api.get(
         acc[crt.id] = { id: crt.id, name: crt.name };
         return acc;
       }, {});
-      yield* put(usersRepo.actions.set(umap));
+      yield* updateStore(db.users.set(umap));
     }
   },
 );

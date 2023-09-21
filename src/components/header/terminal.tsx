@@ -1,6 +1,9 @@
+import React from "react";
+
 import { useSelector } from "starfx/react";
-import { fx } from "../../state/rootStore";
+
 import { selectAppDefs, setAppValue } from "../../state";
+import { fx } from "../../state/rootStore";
 import "./header-common.scss";
 
 export function TerminalSwitch() {
@@ -10,7 +13,9 @@ export function TerminalSwitch() {
       <button
         className="terminal-switch__button terminal-switch__button--active"
         onClick={() => {
-          fx.dispatch(setAppValue({ term_visible: !term_visible }));
+          fx.dispatch(
+            setAppValue({ key: "term_visible", value: !term_visible }),
+          );
         }}
       >
         {term_visible ? (

@@ -1,8 +1,11 @@
-import { useSelector } from "starfx/react";
+import React from "react";
+
 import Balancer from "react-wrap-balancer";
-import { fx } from "@app/state/rootStore";
-import { selectAppDefs, setAppValue } from "@app/state";
+import { useDispatch, useSelector } from "starfx/react";
+
 import { swsterm } from "@app/context/terminal/instructions";
+import { selectAppDefs, setAppValue } from "@app/state";
+
 import "./commontree.scss";
 
 const buttons = [
@@ -19,13 +22,14 @@ const buttons = [
   },
 ];
 export const SideBar = () => {
+  const dispatch = useDispatch();
   const { sidebarid } = useSelector(selectAppDefs);
   const sidebarClick = (idx: number) => {
     {
       swsterm.writelines(
         `\n${buttons.find((b) => b.id === idx)?.title} clicked\n`,
       );
-      fx.dispatch(setAppValue({ sidebarid: idx }));
+      dispatch(setAppValue({ key: "sidebarid", value: idx }));
     }
   };
   return (

@@ -1,26 +1,24 @@
-import { parallel, createQueryState } from "starfx";
+import { parallel } from "starfx";
 import { configureStore } from "starfx/store";
-import { api, thunks } from "./apis";
-import * as slx from "./slices";
+
+import { consumeTerminalEmitter } from "../context/terminal";
 import { startupSaga } from "./rootSaga";
-import { starduxTakeEvery } from "./stardux";
-import { consumeTerminalEmitter } from "./channel";
-
-import type { FxStore } from "starfx/store";
-import type { QueryState } from "starfx";
-
-export const initialState = createQueryState({
-  [slx.appRepo.name]: slx.appRepo.initialState,
-  [slx.notifyRepo.name]: { message: "" },
-  [slx.similo.name]: slx.similo.initialState,
-  [slx.usersRepo.name]: slx.usersRepo.initialState,
-});
+import { api, schema, thunks } from "./rootSchema";
 
 export const store = await configureStore({
-  initialState,
+  initialState: schema.initialState,
+  // enable when needed:
+  middleware: [
+    function* logger(ctx, next) {
+      yield* next();
+      const userData = {
+        type: `db::${(ctx.patches?.[0]?.path || []).join(" / ")}`,
+        payload: ctx?.patches?.[0]?.value,
+      };
+      console.log("logger", userData);
+    },
+  ],
 });
-
-type TInitialStore = typeof initialState;
 
 export const fx = (window.fx = store);
 export const runState = async () =>
@@ -28,7 +26,6 @@ export const runState = async () =>
     const engine = yield* parallel([
       function* () {
         yield* startupSaga();
-        yield* starduxTakeEvery();
       },
       api.bootup,
       thunks.bootup,
@@ -37,4 +34,4 @@ export const runState = async () =>
     yield* engine;
   });
 
-export type RootState = TInitialStore & FxStore<TInitialStore>;
+export type RootState = typeof schema.initialState;

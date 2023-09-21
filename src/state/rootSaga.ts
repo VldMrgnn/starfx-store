@@ -1,5 +1,5 @@
 import { put } from "starfx/store";
-import { go } from "starfx";
+import { call } from "starfx";
 
 function* startUpLog() {
   const now = new Date();
@@ -19,5 +19,5 @@ function* startUpLog() {
 
 export function* startupSaga() {
   yield* put({ type: "RESET_STORE" }); // not implemented //
-  yield* go(() => startUpLog());
+  yield* call(() => startUpLog());
 }

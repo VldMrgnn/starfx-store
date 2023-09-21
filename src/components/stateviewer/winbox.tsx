@@ -1,21 +1,22 @@
 import React from "react";
-import { useSelector } from "starfx/react";
+
+import { Case, Switch } from "react-context-switch";
 import WinBox from "react-winbox";
-import LunaStateViewer from "./luna";
-import { Switch, Case } from "react-context-switch";
-import { setAppValue } from "../../state/slices/app";
-import { fx } from "../../state/rootStore";
-import { selectAppDefs } from "../../state/slices/app";
+import { useSelector } from "starfx/react";
+import "winbox/dist/css/winbox.min.css";
+
 import { useWindowDimensions } from "@app/context";
 
-import "winbox/dist/css/winbox.min.css";
+import { fx } from "../../state/rootStore";
+import { selectAppDefs, setAppValue } from "../../state/slices/app";
+import LunaStateViewer from "./luna";
 import "./viewer.scss";
 
 export const StarfxStateViewer = () => {
   const { height, width } = useWindowDimensions();
   const { stateViewer } = useSelector(selectAppDefs);
   const markClosed = () => {
-    fx.dispatch(setAppValue({ stateViewer: false }));
+    fx.dispatch(setAppValue({ key: "stateViewer", value: false }));
   };
   return (
     <div id="state-viewer">

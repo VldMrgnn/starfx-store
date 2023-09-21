@@ -1,16 +1,21 @@
-import { put } from "starfx/store";
 import { sleep } from "starfx";
+import { put } from "starfx/store";
+
 import { ensureArray } from "@app/service";
-import { terminalReaderChannel } from "@app/state/channel";
-import { systemCommand, userCommand } from "./commands";
 import {
   parseConsoleCmd,
-  similoSetSome,
   similoAddSome,
-  similoRemoveSome,
-  similoPatchSome,
   similoMergeSome,
+  similoPatchSome,
+  similoRemoveSome,
+  similoSetSome,
 } from "@app/state";
+
+import {
+  terminalEmitterChannel,
+  terminalReaderChannel,
+} from "../../state/channel";
+import { systemCommand, userCommand } from "./commands";
 
 import type { Terminal } from "react-console-emulator";
 import type { Operation, Subscription } from "effection";
@@ -109,3 +114,11 @@ export const dispatchTerminalCmd = (
         break;
     }
   };
+
+export function* consumeTerminalEmitter(): Operation<void> {
+  const subscription = yield* terminalEmitterChannel.output;
+  while (true) {
+    // act on terminal commands, dispatch actions, call apis etc
+    yield* window.fx.run(dispatchTerminalCmd(subscription));
+  }
+}

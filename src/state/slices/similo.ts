@@ -1,17 +1,11 @@
-import { put, takeEvery } from "starfx/store";
-import { fxCreateTable } from "../stardux";
-import { thunks } from "../apis";
+import { takeEvery, updateStore } from "starfx/store";
+
 import { ensureArray } from "@app/service";
+
+import { db, thunks } from "../rootSchema";
 
 import type { Next } from "starfx";
 import type { ThunkCtx } from "@app/types";
-
-export const similo = fxCreateTable({
-  name: "similo",
-  initialState: {
-    init: { init: "init" },
-  },
-});
 
 const similodata = [
   { a: 1 },
@@ -51,7 +45,7 @@ export const similoSetSome = thunks.create(
       acc[key] = cur[key];
       return acc;
     }, {});
-    yield* put(similo.actions.set(smap));
+    yield* updateStore(db.similo.set(smap));
     yield* next();
   },
 );
@@ -75,7 +69,7 @@ export const similoAddSome = thunks.create<unknown>(
       return;
     }
     const data = JSON.parse(ctx.payload as string);
-    yield* put(similo.actions.add(data));
+    yield* updateStore(db.similo.add(data));
     yield* next();
   },
 );
@@ -86,7 +80,7 @@ export const similoRemoveSome = thunks.create<unknown>(
   function* (ctx: ThunkCtx, next: Next) {
     const arr = ensureArray(ctx.payload);
     console.log("arr", arr);
-    yield* put(similo.actions.remove(arr));
+    yield* updateStore(db.similo.remove(arr));
     yield* next();
   },
 );
@@ -102,7 +96,7 @@ export const similoPatchSome = thunks.create<unknown>(
     }
     const data = JSON.parse(ctx.payload as string);
     console.log("data", data);
-    yield* put(similo.actions.patch(data));
+    yield* updateStore(db.similo.patch(data));
     yield* next();
   },
 );
@@ -116,7 +110,7 @@ export const similoMergeSome = thunks.create<unknown>(
       acc[key] = cur[key];
       return acc;
     }, {});
-    yield* put(similo.actions.merge(smap));
+    yield* updateStore(db.similo.merge(smap));
     yield* next();
   },
 );

@@ -1,16 +1,8 @@
-import { fxCreateAssign } from "../stardux";
-import { thunks } from "../apis";
 import notify from "devextreme/ui/notify";
+
 import { IAppNotify } from "@app/types";
 
-const REPO_NAME = "notify";
-
-export const notifyRepo = fxCreateAssign({
-  name: REPO_NAME,
-  initialState: {
-    message: "",
-  },
-});
+import { thunks } from "../rootSchema";
 
 export const appNotify = thunks.create<IAppNotify>(
   "notify",

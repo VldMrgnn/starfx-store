@@ -1,16 +1,18 @@
-import { Switch, Case, CaseElse } from "react-context-switch";
+import React from "react";
+
+import { Button } from "devextreme-react";
+import { Case, CaseElse, Switch } from "react-context-switch";
 import { useSelector } from "starfx/react";
-import { fx } from "../state/rootStore";
+
 import {
+  loadPath,
+  loadUser,
+  loadUserTable,
+  loadUserWithError,
   selectAppDefs,
   selectUserList,
-  setAppValue,
-  loadUser,
-  loadUserWithError,
-  loadPath,
-  loadUserTable,
 } from "../state";
-import { Button } from "devextreme-react";
+import { fx } from "../state/rootStore";
 import "./page-main.scss";
 import "./validation.scss";
 
@@ -85,7 +87,7 @@ export const MainPage = () => {
               <CaseElse>
                 <div className="main-list">
                   <div className="main-text">
-                    {userList.map((user, index) => (
+                    {userList.map((user) => (
                       <div key={user.id}>{user?.name || ""}</div>
                     ))}
                   </div>
@@ -96,16 +98,31 @@ export const MainPage = () => {
         </Case>
         <Case when={2}>
           <div className="main-content">
-          <ul className="main-list">
-            <h2>Suggestions</h2>
+            <ul className="main-list">
+              <h2>Suggestions</h2>
 
-            <li>open the react-console-emulator using the upper button <span > <i className="dx-icon dx-icon-panelleft"></i></span>. Then type "help" for a list of available commands.</li>
-            <li>Run the "similo" commands and watch the canges in the store. by opening the viewer using <span > <i className="dx-icon dx-icon-favorites"></i></span></li>
+              <li>
+                open the react-console-emulator using the upper button{" "}
+                <span>
+                  {" "}
+                  <i className="dx-icon dx-icon-panelleft"></i>
+                </span>
+                . Then type "help" for a list of available commands.
+              </li>
+              <li>
+                Run the "similo" commands and watch the canges in the store. by
+                opening the viewer using{" "}
+                <span>
+                  {" "}
+                  <i className="dx-icon dx-icon-favorites"></i>
+                </span>
+              </li>
 
-            <li>Run the "test" commands</li>
-            <li>Reload the page and the terminal emulator history will persist</li>
-            
-          </ul>
+              <li>Run the "test" commands</li>
+              <li>
+                Reload the page and the terminal emulator history will persist
+              </li>
+            </ul>
           </div>
         </Case>
         <CaseElse>

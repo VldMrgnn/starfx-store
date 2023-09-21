@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+
 import LunaObjectViewer from "luna-object-viewer";
 import "luna-object-viewer/luna-object-viewer.css";
+
 import "./viewer.scss";
 
 class LunaStateViewer extends Component {
@@ -19,7 +21,7 @@ class LunaStateViewer extends Component {
     });
     this.stateViewer?.set(window.fx.getState());
   }
-  componentDidUpdate(prevProps, prevState, snapshot?: any): void {
+  componentDidUpdate(): void {
     this.stateViewer?.set(this.state);
   }
   componentWillUnmount() {

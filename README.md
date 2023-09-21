@@ -11,6 +11,7 @@ Welcome to a breezy and informal exploration of Starfx, a distinctive side-effec
 ## About This Project
 
 This app is your go-to place for dabbling with and unraveling the functionalities of Starfx in a fun way. It’s not a comprehensive guide; it’s more of a playful corner to explore and perhaps, grasp a thing or two about how Starfx works.
+You can check this app on codesandbox [here](https://codesandbox.io/p/github/VldMrgnn/starfx-store).
 
 ## Overview
 

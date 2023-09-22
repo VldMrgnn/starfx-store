@@ -1,9 +1,10 @@
-import { parallel } from "starfx";
-import { configureStore } from "starfx/store";
+import { parallel } from 'starfx';
+import { configureStore, take } from 'starfx/store';
 
-import { consumeTerminalEmitter } from "../context/terminal";
-import { startupSaga } from "./rootSaga";
-import { api, schema, thunks } from "./rootSchema";
+import { setupDevTool, subscribeToActions } from '../context/devtools';
+import { consumeTerminalEmitter } from '../context/terminal';
+import { startupSaga } from './rootSaga';
+import { api, schema, thunks } from './rootSchema';
 
 export const store = await configureStore({
   initialState: schema.initialState,
@@ -16,13 +17,18 @@ export const store = await configureStore({
         payload: ctx?.patches?.[0]?.value,
       };
       console.log("logger", userData);
+    
+    
     },
   ],
 });
 
+
 export const fx = (window.fx = store);
-export const runState = async () =>
-  fx.run(function* () {
+
+export const runState = async () => {
+  setupDevTool(fx, { name: "starfx" });
+  return fx.run(function* () {
     const engine = yield* parallel([
       function* () {
         yield* startupSaga();
@@ -30,8 +36,16 @@ export const runState = async () =>
       api.bootup,
       thunks.bootup,
       consumeTerminalEmitter,
+      function* logger() {
+        while (true) {
+          const action = yield* take("*");
+          subscribeToActions(fx, {action});
+        }
+      },
     ]);
     yield* engine;
   });
+}
+
 
 export type RootState = typeof schema.initialState;

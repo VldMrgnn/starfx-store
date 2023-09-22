@@ -5,7 +5,8 @@ Welcome to a breezy and informal exploration of Starfx, a distinctive side-effec
 - **Setting up Starfx**
 - **Managing side-effects, APIs, and Thunks the Starfx way**
 - **Crafting channels**
-- **Creating a raw but effective Store viewer**
+- **Hook-up the `@redux-devtools/extension`**
+- **Creating a raw but effective Store viewer** _(for when devtools are not available)_
 - **Developing a persistent slice** _(This is just a stopgap until an official solution is available.)_
 
 ## About This Project

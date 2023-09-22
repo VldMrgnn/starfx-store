@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import { Allotment } from 'allotment';
-import 'devextreme/dist/css/dx.common.css';
-import 'devextreme/dist/css/dx.light.css';
-import { run } from 'starfx';
-import { useSelector } from 'starfx/react';
+import { Allotment } from "allotment";
+import "devextreme/dist/css/dx.common.css";
+import "devextreme/dist/css/dx.light.css";
+import { run } from "starfx";
+import { useSelector } from "starfx/react";
 
-import { useTerminal, useWindowDimensions } from '@app/context';
-import * as appConst from '@app/state/constants';
+import { useTerminal, useWindowDimensions } from "@app/context";
+import * as appConst from "@app/state/constants";
 
-import './App.scss';
-import { SideBar, StateViewer, TerminalSwitch, Whoami } from './components';
-import { MainPage } from './pageMain';
-import { ConsolePage } from './pageTerminal';
-import { selectAppDefs } from './state';
+import "./App.scss";
+import { SideBar, StateViewer, TerminalSwitch, Whoami } from "./components";
+import { MainPage } from "./pageMain";
+import { ConsolePage } from "./pageTerminal";
+import { selectAppDefs } from "./state";
 
 const appStyle = {
   "--header-height": `${appConst.SIZES.headerHeight}px`,
@@ -21,7 +21,6 @@ const appStyle = {
 } as React.CSSProperties;
 
 function App() {
-
   const { drawerHeight } = useWindowDimensions();
   const { runTerminal } = useTerminal();
   const apps = useSelector(selectAppDefs);

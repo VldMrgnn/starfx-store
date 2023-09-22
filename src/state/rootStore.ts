@@ -1,10 +1,10 @@
-import { parallel } from 'starfx';
-import { configureStore, take } from 'starfx/store';
+import { parallel } from "starfx";
+import { configureStore, take } from "starfx/store";
 
-import { setupDevTool, subscribeToActions } from '../context/devtools';
-import { consumeTerminalEmitter } from '../context/terminal';
-import { startupSaga } from './rootSaga';
-import { api, schema, thunks } from './rootSchema';
+import { setupDevTool, subscribeToActions } from "../context/devtools";
+import { consumeTerminalEmitter } from "../context/terminal";
+import { startupSaga } from "./rootSaga";
+import { api, schema, thunks } from "./rootSchema";
 
 export const store = await configureStore({
   initialState: schema.initialState,
@@ -17,12 +17,9 @@ export const store = await configureStore({
         payload: ctx?.patches?.[0]?.value,
       };
       console.log("logger", userData);
-    
-    
     },
   ],
 });
-
 
 export const fx = (window.fx = store);
 
@@ -39,13 +36,12 @@ export const runState = async () => {
       function* logger() {
         while (true) {
           const action = yield* take("*");
-          subscribeToActions(fx, {action});
+          subscribeToActions(fx, { action });
         }
       },
     ]);
     yield* engine;
   });
-}
-
+};
 
 export type RootState = typeof schema.initialState;

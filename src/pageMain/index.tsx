@@ -1,20 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import { Button } from "devextreme-react";
-import { Case, CaseElse, Switch } from "react-context-switch";
-import { useSelector } from "starfx/react";
+import { Button } from 'devextreme-react';
+import { Case, CaseElse, Switch } from 'react-context-switch';
+import { useSelector } from 'starfx/react';
 
 import {
-  loadPath,
-  loadUser,
-  loadUserTable,
-  loadUserWithError,
-  selectAppDefs,
-  selectUserList,
-} from "../state";
-import { fx } from "../state/rootStore";
-import "./page-main.scss";
-import "./validation.scss";
+    loadPath, loadUser, loadUserTable, loadUserWithError, selectAppDefs, selectUserList
+} from '../state';
+import { fx } from '../state/rootStore';
+import './page-main.scss';
+import './validation.scss';
 
 type TUser = {
   id: number;
@@ -121,6 +116,11 @@ export const MainPage = () => {
               <li>Run the "test" commands</li>
               <li>
                 Reload the page and the terminal emulator history will persist
+              </li>
+              <li>
+              <div style={{"wordWrap":"break-word"}}>
+              To gain a more in-depth understanding of the application's state, consider using the <code>@redux-devtools/extension</code> tool, which is typically accessible through your browser's console or a related interface.
+              </div>
               </li>
             </ul>
           </div>

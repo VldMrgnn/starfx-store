@@ -59,7 +59,6 @@ export function subscribeToActions(
   }
 
   const unSubscribe = (fxstore as FxStore<AppState>).subscribe(() => {
-    console.log("Subscribing to actions");
     devToolsInstance.send(
       {
         type: "ACTION",

@@ -41,7 +41,7 @@ export function setupDevTool<T extends object>(fxstore: T, options?: Options) {
   devToolsInstance = extension.connect({ name, ...rest });
   devToolsInstance.init(fxstore);
 
-  // for later useq
+  // for later use
   return devToolsInstance;
 }
 
